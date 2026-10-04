@@ -194,7 +194,7 @@ The neurologist. The four students. And me. I had been there for a week. I had h
 
 I was not telling a neurologist how to diagnose a movement disorder. I was not rejecting the week of investigation. I was telling him that the thing I walked in on had not been dealt with. For most of the admission, there is still a charitable question available. Had the feet simply been forgotten? Hospitals are busy. Teams change. One problem becomes urgent and another waits. A referral is compressed. A history gets retold. A visible abnormality becomes background. Things fall out of working memory. That happens. But on the second Monday, I put the feet back in front of the person responsible for my neurological care. After that, forgetting was no longer enough to explain what happened next. The neurologist's reply, as I remember it, was:
 
-“It's as easy for you to get a neurologist visit as it is for me.”
+“It's as easy for you to get a podiatrist as it is for me.”
 
 I have thought about that sentence many times. At the time, I did not turn it into an accusation. I was still inside the relationship. I still trusted him. I still believed the diagnosis was real. I still believed the hospital knew more than I did. And I still believed, perhaps most importantly, that an unresolved problem would remain unresolved until somebody resolved it. That is not what happened. The next morning, I was discharged. The record would not say that the feet had been forgotten. It would do something more consequential. It would explain them.
 
