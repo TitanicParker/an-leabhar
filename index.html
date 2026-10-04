@@ -2,306 +2,420 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chapter One — The Feet</title>
-<meta name="description" content="Chapter One: The Feet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f3efe7">
+<title>An Leabhar</title>
+<meta name="description" content="An Leabhar — an eighteen-chapter reading edition.">
 <style>
-:root {
-  --paper: #f3efe7;
-  --ink: #1f201d;
-  --muted: #706d64;
-  --rule: #b8b0a2;
-  --accent: #7b2f2a;
-  --measure: 44rem;
-  --shadow: rgba(26, 24, 20, .08);
+:root{
+  --paper:#f3efe7;
+  --ink:#1f201d;
+  --muted:#706d64;
+  --rule:#b8b0a2;
+  --accent:#7b2f2a;
+  --measure:44rem;
+  --shadow:rgba(26,24,20,.08);
+  --sans:Arial,Helvetica,sans-serif;
+  --serif:Georgia,"Times New Roman",Times,serif;
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: #d8d1c5; }
-body {
-  margin: 0;
-  color: var(--ink);
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#d8d1c5}
+body{
+  margin:0;
+  color:var(--ink);
   background:
-    radial-gradient(circle at 15% 10%, rgba(255,255,255,.62), transparent 30rem),
-    linear-gradient(180deg, #ddd6cb 0, #d1c8bb 100%);
-  font-family: Georgia, "Times New Roman", Times, serif;
-  text-rendering: optimizeLegibility;
+    radial-gradient(circle at 15% 10%,rgba(255,255,255,.62),transparent 30rem),
+    linear-gradient(180deg,#ddd6cb 0,#d1c8bb 100%);
+  font-family:var(--serif);
+  text-rendering:optimizeLegibility;
 }
-.progress {
-  position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 30;
-  background: linear-gradient(90deg, var(--accent) var(--progress,0%), transparent 0);
-  pointer-events: none;
+button{font:inherit}
+.progress{
+  position:fixed;inset:0 0 auto 0;height:3px;z-index:60;
+  background:linear-gradient(90deg,var(--accent) var(--progress,0%),transparent 0);
+  pointer-events:none
 }
-.shell {
-  width: min(100%, 67rem);
-  margin: 4.5rem auto;
-  background: var(--paper);
-  box-shadow: 0 1.5rem 4rem var(--shadow);
-  border: 1px solid rgba(75,65,50,.14);
+.chapter-rail-wrap{
+  position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(75,65,50,.2);
+  background:color-mix(in srgb,var(--paper) 94%,transparent);
+  backdrop-filter:blur(14px);
 }
-.mast {
-  padding: 6.5rem 8vw 4rem;
-  border-bottom: 1px solid var(--rule);
-  position: relative;
-  overflow: hidden;
+.chapter-rail{
+  width:min(100%,67rem);
+  margin:auto;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;
+  gap:.85rem;
+  padding:.72rem 1rem;
 }
-.mast::after {
-  content: "I";
-  position: absolute;
-  right: 6%;
-  top: -2.8rem;
-  font-family: Georgia, serif;
-  font-size: 17rem;
-  line-height: 1;
-  color: rgba(31,32,29,.035);
-  font-weight: 700;
-  pointer-events: none;
+.rail-title{
+  font:700 .68rem/1 var(--sans);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--muted);
+  white-space:nowrap
 }
-.kicker {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: .72rem;
-  letter-spacing: .22em;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 2.2rem;
+.chapter-strip{
+  display:flex;
+  gap:.35rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+  scroll-behavior:smooth;
+  padding:.1rem 0
 }
-h1 {
-  margin: 0;
-  font-weight: 400;
-  font-size: clamp(3.8rem, 9vw, 7.7rem);
-  line-height: .88;
-  letter-spacing: -.045em;
+.chapter-strip::-webkit-scrollbar{display:none}
+.chapter-tab{
+  flex:0 0 auto;
+  min-width:2.15rem;height:2.15rem;
+  border:1px solid rgba(75,65,50,.22);
+  border-radius:999px;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  font:700 .72rem/1 var(--sans)
 }
-.deck {
-  margin: 2.2rem 0 0;
-  color: var(--muted);
-  max-width: 34rem;
-  font-style: italic;
-  font-size: 1.05rem;
-  line-height: 1.5;
+.chapter-tab:hover{border-color:var(--accent);color:var(--accent)}
+.chapter-tab[aria-current="page"]{
+  border-color:var(--accent);
+  background:var(--accent);
+  color:#fffaf4
 }
-.meta {
-  display: flex;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  margin-top: 3.25rem;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--muted);
-  font-size: .73rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+.chapter-count{
+  font:700 .68rem/1 var(--sans);
+  color:var(--muted);
+  white-space:nowrap
 }
-article {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 5rem 2rem 7rem;
+.shell{
+  width:min(100%,67rem);
+  margin:2.4rem auto 4.5rem;
+  background:var(--paper);
+  box-shadow:0 1.5rem 4rem var(--shadow);
+  border:1px solid rgba(75,65,50,.14)
 }
-article p {
-  margin: 0 0 1.45rem;
-  font-size: clamp(1.12rem, 2.2vw, 1.3rem);
-  line-height: 1.72;
-  hanging-punctuation: first last;
+.mast{
+  padding:5.5rem 8vw 3.6rem;
+  border-bottom:1px solid var(--rule);
+  position:relative;
+  overflow:hidden
 }
-article p:first-of-type::first-letter {
-  float: left;
-  font-size: 5.6rem;
-  line-height: .72;
-  padding: .13em .13em 0 0;
-  color: var(--accent);
+.mast::after{
+  content:attr(data-roman);
+  position:absolute;
+  right:5%;
+  top:-2.8rem;
+  font:700 17rem/1 var(--serif);
+  color:rgba(31,32,29,.035);
+  pointer-events:none
 }
-.opening-line {
-  font-size: clamp(1.5rem, 3vw, 2rem) !important;
-  line-height: 1.45 !important;
-  font-weight: 700;
-  letter-spacing: -.015em;
-  margin-bottom: 2rem !important;
+.kicker{
+  font:700 .72rem/1 var(--sans);
+  letter-spacing:.22em;
+  color:var(--accent);
+  margin-bottom:2rem
 }
-.beat {
-  margin: 2.35rem 0 !important;
-  font-size: clamp(1.24rem, 2.5vw, 1.55rem) !important;
-  line-height: 1.5 !important;
+h1{
+  margin:0;
+  max-width:13ch;
+  font-weight:400;
+  font-size:clamp(3.25rem,8.5vw,7.1rem);
+  line-height:.9;
+  letter-spacing:-.045em;
+  text-wrap:balance
 }
-.beat + .beat { margin-top: -1rem !important; }
-.break {
-  width: 4.5rem; height: 1px; background: var(--rule); margin: 3.25rem auto;
+.deck{
+  margin:2rem 0 0;
+  color:var(--muted);
+  max-width:34rem;
+  font-style:italic;
+  font-size:1rem;
+  line-height:1.5
 }
-footer {
-  border-top: 1px solid var(--rule);
-  padding: 2rem 8vw 3rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: .72rem;
-  color: var(--muted);
-  letter-spacing: .05em;
-  text-transform: uppercase;
+.meta{
+  display:flex;gap:1.2rem;flex-wrap:wrap;
+  margin-top:2.7rem;
+  font:400 .73rem/1.4 var(--sans);
+  color:var(--muted);
+  letter-spacing:.06em;
+  text-transform:uppercase
 }
-.controls {
-  position: fixed;
-  right: 1rem; bottom: 1rem;
-  display: flex; gap: .5rem;
-  z-index: 20;
+article{
+  max-width:var(--measure);
+  margin:0 auto;
+  padding:4.6rem 2rem 5.2rem
 }
-button {
-  border: 1px solid rgba(0,0,0,.14);
-  background: rgba(243,239,231,.94);
-  color: var(--ink);
-  padding: .65rem .8rem;
-  border-radius: 999px;
-  font: 600 .75rem/1 Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  box-shadow: 0 .35rem 1rem rgba(0,0,0,.08);
+article p{
+  margin:0 0 1.45rem;
+  font-size:clamp(1.12rem,2.2vw,1.3rem);
+  line-height:1.72;
+  hanging-punctuation:first last
 }
-body.night {
-  --paper: #171814;
-  --ink: #e8e3d8;
-  --muted: #aaa395;
-  --rule: #45443e;
-  --accent: #ce746c;
-  background: #0f100e;
+article p:first-of-type{
+  font-size:clamp(1.35rem,2.6vw,1.72rem);
+  line-height:1.55;
+  font-weight:700;
+  letter-spacing:-.012em;
+  margin-bottom:2rem
 }
-body.night .mast::after { color: rgba(255,255,255,.035); }
-body.night button {
-  background: rgba(23,24,20,.94);
-  color: var(--ink);
-  border-color: rgba(255,255,255,.12);
+article p:first-of-type::first-letter{
+  float:left;
+  font-size:5.6rem;
+  line-height:.72;
+  padding:.13em .13em 0 0;
+  color:var(--accent)
 }
-@media (max-width: 720px) {
-  .shell { margin: 0; border: 0; }
-  .mast { padding: 5rem 1.35rem 3rem; }
-  article { padding: 3.75rem 1.35rem 5rem; }
-  footer { padding: 1.5rem 1.35rem 5rem; }
-  .controls { right: .75rem; bottom: .75rem; }
+article h2,article h3{
+  font-weight:500;
+  line-height:1.15;
+  text-wrap:balance
 }
-@media print {
-  html, body { background: white !important; }
-  body { color: #000; }
-  .shell { box-shadow: none; border: 0; margin: 0; width: 100%; }
-  .controls, .progress { display: none !important; }
-  .mast { padding: 2.2cm 2cm 1.5cm; }
-  article { max-width: 15.5cm; padding: 1.5cm 0 2cm; }
-  article p { font-size: 11.5pt; line-height: 1.55; }
-  h1 { font-size: 46pt; }
-  footer { padding: 1cm 2cm; }
+article h2{font-size:2rem;margin:3.5rem 0 1.4rem}
+article h3{font-size:1.5rem;margin:2.8rem 0 1.2rem}
+article blockquote{
+  margin:2.6rem 0;
+  padding:.2rem 0 .2rem 1.35rem;
+  border-left:2px solid var(--accent);
+  color:var(--muted)
+}
+article ul,article ol{padding-left:1.5rem}
+article li{margin:.5rem 0}
+article hr{
+  border:0;
+  width:4.5rem;height:1px;
+  background:var(--rule);
+  margin:3.25rem auto
+}
+.loading,.error{
+  color:var(--muted);
+  font:500 .9rem/1.5 var(--sans)
+}
+.chapter-foot{
+  border-top:1px solid var(--rule);
+  padding:1.5rem 8vw 2rem;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:1rem;
+  align-items:center;
+  font-family:var(--sans)
+}
+.nav-btn{
+  border:0;background:transparent;color:var(--accent);
+  cursor:pointer;padding:.5rem 0;
+  font:700 .72rem/1.25 var(--sans);
+  letter-spacing:.04em;
+  text-transform:uppercase
+}
+.nav-btn.prev{text-align:left}
+.nav-btn.next{text-align:right}
+.nav-btn:disabled{visibility:hidden}
+.foot-label{
+  color:var(--muted);
+  font:.68rem/1.2 var(--sans);
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  text-align:center
+}
+.controls{
+  position:fixed;
+  right:1rem;bottom:1rem;
+  display:flex;gap:.5rem;
+  z-index:55
+}
+.control-btn{
+  border:1px solid rgba(0,0,0,.14);
+  background:rgba(243,239,231,.94);
+  color:var(--ink);
+  padding:.65rem .8rem;
+  border-radius:999px;
+  font:600 .75rem/1 var(--sans);
+  cursor:pointer;
+  box-shadow:0 .35rem 1rem rgba(0,0,0,.08)
+}
+body.night{
+  --paper:#171814;
+  --ink:#e8e3d8;
+  --muted:#aaa395;
+  --rule:#45443e;
+  --accent:#ce746c;
+  background:#0f100e
+}
+body.night .mast::after{color:rgba(255,255,255,.035)}
+body.night .control-btn{background:rgba(23,24,20,.94);color:var(--ink);border-color:rgba(255,255,255,.12)}
+body.night .chapter-rail-wrap{background:rgba(23,24,20,.94);border-color:rgba(255,255,255,.1)}
+body.night .chapter-tab{border-color:rgba(255,255,255,.16)}
+@media(max-width:720px){
+  .chapter-rail{grid-template-columns:auto 1fr;padding:.62rem .75rem}
+  .rail-title{display:none}
+  .chapter-count{font-size:.62rem}
+  .shell{margin:0;border:0;box-shadow:none}
+  .mast{padding:4.5rem 1.35rem 3rem}
+  .mast::after{font-size:12rem;top:-1.4rem}
+  article{padding:3.75rem 1.35rem 4rem}
+  .chapter-foot{padding:1.2rem 1.35rem 4.8rem}
+  .controls{right:.75rem;bottom:.75rem}
+}
+@media print{
+  html,body{background:#fff!important}
+  body{color:#000}
+  .progress,.chapter-rail-wrap,.controls,.chapter-foot{display:none!important}
+  .shell{box-shadow:none;border:0;margin:0;width:100%}
+  .mast{padding:2.2cm 2cm 1.5cm}
+  article{max-width:15.5cm;padding:1.5cm 0 2cm}
+  article p{font-size:11.5pt;line-height:1.55}
+  h1{font-size:46pt}
 }
 </style>
 </head>
 <body>
 <div class="progress" aria-hidden="true"></div>
+
+<nav class="chapter-rail-wrap" aria-label="Chapters">
+  <div class="chapter-rail">
+    <div class="rail-title">An Leabhar</div>
+    <div id="chapterStrip" class="chapter-strip" aria-label="Choose a chapter"></div>
+    <div id="chapterCount" class="chapter-count">1 / 18</div>
+  </div>
+</nav>
+
 <div class="controls" aria-label="Reading controls">
-  <button id="theme" type="button">Night</button>
-  <button id="print" type="button">Print</button>
+  <button class="control-btn" id="theme" type="button">Night</button>
+  <button class="control-btn" id="print" type="button">Print</button>
 </div>
 
 <main class="shell">
-  <header class="mast">
-    <div class="kicker">CHAPTER ONE</div>
-    <h1>The Feet</h1>
-    <p class="deck">Before there were scans, letters, diagnoses or explanations, there were the feet.</p>
+  <header class="mast" id="mast" data-roman="I">
+    <div class="kicker" id="kicker">CHAPTER ONE</div>
+    <h1 id="chapterTitle">The Feet</h1>
+    <p class="deck" id="deck">An eighteen-chapter reading edition.</p>
     <div class="meta"><span>Draft manuscript</span><span>Reading edition</span></div>
   </header>
 
-  <article>
-    <p class="opening-line">My feet are a pair of cunts, both of them.</p>
-<p>That is the cleanest description I have. It is not medical and it is not elegant, but it has the advantage of being true.</p>
-<p>I have never had the kind of feet you forget about. Some people put on shoes in the morning and the matter is settled. They do not negotiate with the shoe. They do not press a thumb into the heel and wonder whether the seam will become an enemy by lunchtime. They do not stand in a shop in new runners and try to imagine what the same pair will feel like after three hours, or six, or after a wedding in a hotel where everybody else has somehow agreed that hard leather is formal and pain is a reasonable price for looking respectable.</p>
-<p>I have gone to weddings in runners. Abroad, I have gone in sandals. Proper shoes can make me miserable in five minutes. Even now, if I buy two new pairs of runners, the sensible order is not shoes first. It is two pairs of soft insoles and three packets of foot plasters. Then the shoes. Preparation before optimism.</p>
-<p>This has been going on so long that there are parts of it I once thought belonged to everybody. Athlete&#x27;s foot. Ingrown toenails. Corns. Calluses. Bruises. Hammer toes. Nails that seemed to be trying to turn themselves into shells. Feet that were never quite neutral ground.</p>
-<p>For years I treated all of that as one treats weather in Galway. Annoying, recurring, not entirely surprising, and unlikely to alter because I objected to it.</p>
-<p class="beat">The walking was different.</p>
-<p class="beat">I used to walk anywhere.</p>
-<p>When I was young and working in bars, walking was not exercise. It was simply one of the ways a day moved forward. You walked to work. You walked home. You crossed town. You stood for ten hours and then walked three miles because there was no reason not to. Your legs belonged to you. You did not consult them.</p>
-<p>I began bar work on the tenth of May 1997, my brother&#x27;s birthday. I started where people start when they are useful but not yet trusted with anything important: clearing tables, emptying ashtrays, collecting glasses, bringing down ice, moving kegs, taking deliveries. A full keg of Guinness is not philosophical. Neither are two cases of Coke after ten hours on your feet. They require a body that agrees to the transaction.</p>
-<p>I loved being part of the machine of it. Ten or fifteen people making a place work for hundreds of people who had arrived with no interest in how the place worked. The customers wanted drink, warmth, noise, music, attention, invisibility, company, a row, a ride, a story, or to be left alone. Our job was to hold the whole thing together without making it look like work.</p>
-<p>Bar work teaches you about people, but it also teaches you about yourself. By about 1999 I wanted to get behind the bar. The manager said he would think about it, but that I was a bit quick with my tongue.</p>
-<p>I probably answered with something quick.</p>
-<p>He was right, though. I had to learn to manage my own character. That sounds grander than it was. It meant understanding that if I felt small, impatient or irritated, I had the ability to make somebody else feel small very quickly. My face did half the talking for me. Raised eyebrow. Look. Silence. The customer in front of you might deserve it, but the ten people behind him were watching too. If you carried one bad interaction into the next, you could sour half a section of the bar without ever deciding to.</p>
-<p>So I learned to get over myself quickly.</p>
-<p>Nobody deserved to be made feel small just because I was tired.</p>
-<p>This was not sainthood. It was practical hospitality.</p>
-<p>There would be five people looking at me laughing and two in the corner who would begrudge me. That was fine. I was always funny, but bar work gave the humour a stage. I have a strong face, a bald head, a boxer&#x27;s nose, piercing eyes and very little talent for looking neutral. You either laugh or you think.</p>
-<p>For a while I was the top man in the King&#x27;s Head. My name was the name. I do not mean that the way it sounds. I did not spend my days measuring rank. If anything, part of the reason people gave me status was that I did not seem especially hungry for it.</p>
-<p>Around then, my life was busy in a way that now feels almost extravagant. I had a girlfriend I loved. I was studying psychology and maths. I was going to motivational seminars, positive-thinking seminars, life-organisation things, anything that promised there might be a better way to understand a person or arrange a life. I had started reading A Course in Miracles. I played darts. I worked. I had friends. I had dreams that did not need to be dramatic because I assumed there would be time.</p>
-<p>If you had met me at twenty-five, I would probably have seemed easy. People loved me. I was just so easy for people. I didn&#x27;t want anything from them. I had what I wanted.</p>
-<p class="beat">The feet were already there, but they had not yet become a story.</p>
-<p>The pain I remember most clearly began around 2004 or 2005, toward the end of my time in the King&#x27;s Head. It was on the outside of the left foot, around the joint near the little toe. I did not know the proper name for the place. I knew where it hurt. That was enough.</p>
-<p>Later, looking backward with words I did not have at the time, I would understand more of what my toes and feet had been doing. Clawing. Cramping. Turning. Tension. But you do not live your life with the vocabulary that will eventually be applied to it. You live with whatever words are available while you are trying to get through Tuesday.</p>
-<p class="beat">At the time, my feet were sore.</p>
-<p class="beat">That was the sentence.</p>
-<p>By 2007 I was in Taaffes. I had finished college two years earlier. I had left the King&#x27;s Head only a few weeks before starting there. I had also done a life-coaching course, because apparently I believed no human problem should be permitted to escape without being approached from at least six intellectual directions.</p>
-<p class="beat">Taaffes was harder on the body.</p>
-<p>The work demanded flexibility, strength and forbearance. By then pain was not an occasional visitor. It was part of the background. I could walk roughly three miles to work, do the shift, and keep going. That is not the same as saying it was fine.</p>
-<p>It is crazy how much I neglected myself in Taaffes.</p>
-<p>There were periods when I was single and moving between places. At one point I lived in Ballybrit. I washed clothes once a week. Showered every second day. Kept my head shaved because that was one less thing to manage. I would finish around one in the morning, go for four pints, go home, have a few cigarettes and very often find nobody there.</p>
-<p>I was around thirty. People who had once been naturally around me were beginning to move along the conveyor belt of ordinary adulthood. Marriages. Houses. Children. Different jobs. Different shifts. Different countries. I still made friends easily. I still had workmates. I had Gareth. I gave maths grinds. I played darts in the Trappers. I was not a hermit.</p>
-<p>But life was becoming more solitary without anybody announcing that it had.</p>
-<p>The drinking fitted into that life. I fucking love a pint. There is no point making the story more respectable than the life.</p>
-<p>Alcohol was social, emotional, physical and habitual. After a long bar shift, it helped settle the mind. When my body was carrying tension I did not understand, it could soften the edges. After the breakup with my girlfriend, loneliness was part of the picture too. I did not drink at home. Three or four pints was ordinary. Sometimes five. Almost never six. Not seven. Even then I was conscious of falling.</p>
-<p>Later, people would find other meanings for alcohol. At the time, I knew what meaning it had for me.</p>
-<p class="beat">It was the part of the night after work.</p>
-<p class="beat">Darts fitted the same geography.</p>
-<p>I love the act of throwing a dart. There is something clean about it. Look at something. Throw something at it. Occasionally hit it. When nobody is watching, the miss does not matter.</p>
-<p>When I started, I was probably about as good as I ever became. I could throw fifteen-dart legs. Darts gave me another team, and teams mattered to me. There was the team behind the bar and the team at the board. It also gave me numbers, aiming, challenge, pub life and an excuse to keep going back.</p>
-<p>The body was already making that harder long before I knew why.</p>
-<p>A darts night is full of small repeated movements. Step up. Set your feet. Throw. Walk forward. Pull the darts. Turn. Walk back. Reset. Again. Again. Again. You can hide a lot inside repetition because nobody movement looks important enough to deserve its own explanation.</p>
-<p>As the evening went on, my feet would wear me down. The clawing, the turning, the stop-start movement. I would gradually fold forward until I could look like a caveman by the end of the night.</p>
-<p>It was not like a dramatic attack. It was like a man walking his final steps.</p>
-<p>And I still wanted another throw.</p>
-<p>That is one of the difficulties with telling a story about a body in retrospect. Once you know the ending of a sentence, every earlier word begins to look like foreshadowing. It was not. I was not standing at a dartboard in 2008 thinking: this is neurological evidence. I was thinking about the darts.</p>
-<p>Between roughly 2004 and 2012, I said very little about how much I was struggling. I would say my feet were sore. That was true. It was also incomplete.</p>
-<p>There is a strange social fact buried in those years. I was around hundreds, perhaps thousands, of people. Bars are not private places. Darts is not solitary when it is played in leagues. Work puts you in rooms with the same bodies every day. I believe I was visibly struggling.</p>
-<p class="beat">Almost nobody said anything.</p>
-<p class="beat">Two people, in all those years, directly commented on what they could see. Two.</p>
-<p>Maybe that says something about me. Maybe it says something about other people. Maybe it says that slow change is difficult to witness because the eye adjusts along with it. A person can become less well one degree at a time and still look, to everyone who sees him every week, like himself.</p>
-<p class="beat">The body makes bargains without telling you they are bargains.</p>
-<p>For a long time, the mornings were the closest thing I had to a reset. I remember a period when the best twenty minutes of the day were the first twenty.</p>
-<p>I could set out walking toward town and feel almost normal for the first five hundred yards. Then something would begin to disappear. The walking would come apart. I had the sensation that I was using something up.</p>
-<p>Eight hours of sleep might buy twenty minutes.</p>
-<p>That is a very odd economy if you think about it, so mostly I did not.</p>
-<p>At night there was tension. I cannot reconstruct every detail honestly. Memory is not CCTV. There are parts I know only because later records name them, and there are parts I remember as bodily fact without being able to tell you exactly which Tuesday they belonged to. During some of the worst tension before bed I was, as I have put it, nice and stoned and drunk.</p>
-<p class="beat">That is part of the record too.</p>
-<p>There is a temptation, when a life becomes medical, to clean the patient up before presenting him. Remove the pints. Remove the cigarettes. Remove the weed. Replace bad language with courage. Replace contradiction with insight.</p>
-<p class="beat">I am not interested in that version.</p>
-<p>I was a man whose feet hurt, who worked in bars, who drank, who played darts, who could be kind, who could be sharp, who read spiritual texts, who liked numbers, who made people laugh, who ignored himself, who wanted another throw.</p>
-<p class="beat">And I walked.</p>
-<p>For all the trouble in my feet, walking remained one of the deepest facts of me. I had spent years standing, hauling, crossing town, moving through rooms, moving between pubs, work, college, darts and home. I did not think of walking as a performance of health. It was simply locomotion. It was how you got there.</p>
-<p>Years later, when my life had become smaller, I would return again and again to an old Christian image called Footprints in the Sand. In the story, a person looks back over his life and sees two sets of footprints on the beach, his and God&#x27;s, except during the hardest periods, when there is only one. He asks why God abandoned him. God says: those were the times I carried you.</p>
-<p class="beat">My version is different.</p>
-<p class="beat">In my hard times, I walked myself.</p>
-<p>That single set of footprints on the beach in my hard times, they&#x27;re mine.</p>
-<p>I do not mean that as a rejection of God. I mean it as a fact about carrying.</p>
-<p>Before there were letters, referrals, scans, diagnoses, medication schedules, genetic questions or categories, there were the feet. There were shoes that needed plasters before they could be trusted. There were toes that clawed. There was a joint on the outside of the left foot that could make a walk suddenly expensive. There were late shifts and miles home. There was a dartboard and a stance that became harder to hold. There were mornings that offered twenty good minutes and nights that took them back.</p>
-<p class="beat">I did not know what any of it meant.</p>
-<p class="beat">I only knew that I could still walk.</p>
-<p class="beat">And for a long time, that was good enough.</p>
+  <article id="manuscript" aria-live="polite">
+    <p class="loading">Opening the book…</p>
   </article>
 
-  <footer>
-    <span>Chapter One</span>
-    <span>The Feet</span>
+  <footer class="chapter-foot">
+    <button class="nav-btn prev" id="prev" type="button">← Previous</button>
+    <div class="foot-label" id="footLabel">Chapter 1 of 18</div>
+    <button class="nav-btn next" id="next" type="button">Next →</button>
   </footer>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 <script>
-const root = document.documentElement;
-const theme = document.getElementById('theme');
-const printBtn = document.getElementById('print');
+const manuscriptUrl='https://raw.githubusercontent.com/TitanicParker/an-leabhar/main/Manuscript.md';
+const manuscript=document.getElementById('manuscript');
+const chapterStrip=document.getElementById('chapterStrip');
+const chapterCount=document.getElementById('chapterCount');
+const chapterTitle=document.getElementById('chapterTitle');
+const kicker=document.getElementById('kicker');
+const mast=document.getElementById('mast');
+const footLabel=document.getElementById('footLabel');
+const prev=document.getElementById('prev');
+const next=document.getElementById('next');
+const theme=document.getElementById('theme');
+const printBtn=document.getElementById('print');
+let chapters=[];
+let current=0;
 
-function updateProgress() {
-  const h = document.documentElement;
-  const max = h.scrollHeight - h.clientHeight;
-  const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
-  root.style.setProperty('--progress', pct + '%');
+const roman=n=>{
+  const m=[['M',1000],['CM',900],['D',500],['CD',400],['C',100],['XC',90],['L',50],['XL',40],['X',10],['IX',9],['V',5],['IV',4],['I',1]];
+  let out='';for(const [s,v] of m){while(n>=v){out+=s;n-=v}}return out;
+};
+const words=['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen'];
+
+function splitChapters(md){
+  const lines=md.split(/\r?\n/);
+  const starts=[];
+  lines.forEach((line,i)=>{if(/^#\s+Chapter\s+/i.test(line))starts.push(i)});
+  return starts.map((start,idx)=>{
+    const end=idx+1<starts.length?starts[idx+1]:lines.length;
+    const heading=lines[start].replace(/^#\s+/,'').trim();
+    const match=heading.match(/^Chapter\s+([^—-]+)\s*[—-]\s*(.+)$/i);
+    const number=idx+1;
+    const title=match?match[2].trim():heading.replace(/^Chapter\s+\S+\s*/i,'').trim();
+    const body=lines.slice(start+1,end).join('\n').replace(/^\s*---\s*$/gm,'').trim();
+    return{number,title,body};
+  });
 }
-addEventListener('scroll', updateProgress, {passive:true});
-updateProgress();
 
-theme.addEventListener('click', () => {
-  document.body.classList.toggle('night');
-  theme.textContent = document.body.classList.contains('night') ? 'Day' : 'Night';
+function buildTabs(){
+  chapterStrip.innerHTML='';
+  chapters.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='chapter-tab';
+    b.textContent=String(c.number);
+    b.setAttribute('aria-label','Chapter '+c.number+': '+c.title);
+    b.addEventListener('click',()=>showChapter(i,true));
+    chapterStrip.appendChild(b);
+  });
+}
+
+function showChapter(i,pushHash=false){
+  if(!chapters.length)return;
+  current=Math.max(0,Math.min(i,chapters.length-1));
+  const c=chapters[current];
+  manuscript.innerHTML=DOMPurify.sanitize(marked.parse(c.body));
+  chapterTitle.textContent=c.title;
+  kicker.textContent='CHAPTER '+words[current].toUpperCase();
+  mast.dataset.roman=roman(c.number);
+  chapterCount.textContent=c.number+' / '+chapters.length;
+  footLabel.textContent='Chapter '+c.number+' of '+chapters.length;
+  prev.disabled=current===0;
+  next.disabled=current===chapters.length-1;
+  [...chapterStrip.children].forEach((b,j)=>{
+    if(j===current)b.setAttribute('aria-current','page');
+    else b.removeAttribute('aria-current');
+  });
+  const active=chapterStrip.children[current];
+  active?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  if(pushHash)history.replaceState(null,'','#chapter-'+c.number);
+  document.title='Chapter '+c.number+' — '+c.title+' · An Leabhar';
+  scrollTo({top:0,behavior:'smooth'});
+  updateProgress();
+}
+
+function chapterFromHash(){
+  const m=location.hash.match(/chapter-(\d+)/i);
+  return m?Math.max(0,Number(m[1])-1):0;
+}
+function updateProgress(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  const pct=max>0?(h.scrollTop/max)*100:0;
+  h.style.setProperty('--progress',pct+'%');
+}
+addEventListener('scroll',updateProgress,{passive:true});
+prev.addEventListener('click',()=>showChapter(current-1,true));
+next.addEventListener('click',()=>showChapter(current+1,true));
+addEventListener('keydown',e=>{
+  if(e.altKey||e.ctrlKey||e.metaKey)return;
+  if(e.key==='ArrowLeft'&&current>0)showChapter(current-1,true);
+  if(e.key==='ArrowRight'&&current<chapters.length-1)showChapter(current+1,true);
 });
+theme.addEventListener('click',()=>{
+  document.body.classList.toggle('night');
+  theme.textContent=document.body.classList.contains('night')?'Day':'Night';
+});
+printBtn.addEventListener('click',()=>window.print());
 
-printBtn.addEventListener('click', () => window.print());
+(async()=>{
+  try{
+    const r=await fetch(manuscriptUrl,{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    chapters=splitChapters(await r.text());
+    if(!chapters.length)throw new Error('No chapters found');
+    buildTabs();
+    showChapter(chapterFromHash(),false);
+  }catch(e){
+    manuscript.innerHTML='<div class="error"><p>The manuscript could not be opened just now.</p></div>';
+    console.error(e);
+  }
+})();
 </script>
 </body>
 </html>
